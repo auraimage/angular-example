@@ -1,0 +1,48 @@
+<div class="min-h-screen bg-neutral-50 text-neutral-900 p-8">
+  <h1 class="text-2xl font-semibold mb-6">AuraImage Angular Example</h1>
+
+  <div class="mb-4">
+    Server:
+    @if (healthy() === null) {
+      <span class="text-neutral-400">Checking...</span>
+    } @else if (healthy()) {
+      <span class="text-green-600">Connected</span>
+    } @else {
+      <span class="text-red-600">Not running — start the Node.js example</span>
+    }
+  </div>
+
+  <div class="mb-6">
+    <input
+      type="file"
+      accept="image/*"
+      (change)="handleUpload($event)"
+      [disabled]="uploading()"
+      class="block w-full max-w-xs text-sm text-neutral-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-neutral-900 file:text-white hover:file:bg-neutral-800"
+    />
+    @if (uploading()) {
+      <p class="text-neutral-500 mt-2">Uploading...</p>
+    }
+    @if (error()) {
+      <p class="text-red-600 mt-2">Upload failed: {{ error() }}</p>
+    }
+  </div>
+
+  @if (image(); as img) {
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      @for (preset of presets; track preset.label) {
+        <div class="bg-white border border-neutral-200 rounded-lg p-4">
+          <p class="text-sm font-medium text-neutral-600 mb-3">{{ preset.label }}</p>
+          <img
+            [src]="img.url + '?' + preset.params"
+            [attr.alt]="preset.label"
+            class="w-full h-auto rounded"
+          />
+          <code class="text-xs text-neutral-500 mt-3 block break-all">
+            {{ img.url }}?{{ preset.params }}
+          </code>
+        </div>
+      }
+    </div>
+  }
+</div>
