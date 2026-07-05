@@ -4,9 +4,9 @@ import type { UploadResult } from '@auraimage/sdk/client'
 import { checkHealth, getUploadToken } from './api'
 
 const PRESETS = [
-  { label: 'Thumbnail 200w WebP', params: 'w=200&h=200&fit=crop&fmt=webp' },
-  { label: 'Medium 600w AVIF', params: 'w=600&fmt=avif' },
-  { label: 'Full 1200w', params: 'w=1200' }
+  { label: 'Thumbnail 200w WebP', transform: 'w=200,h=200', ext: '.webp' },
+  { label: 'Medium 600w AVIF', transform: 'w=600', ext: '.avif' },
+  { label: 'Full 1200w (auto format)', transform: 'w=1200', ext: '' }
 ]
 
 @Component({
@@ -21,6 +21,14 @@ export class AppComponent implements OnInit {
   error = signal<string | null>(null)
 
   presets = PRESETS
+
+  // Serve-URL grammar: {base}/{project}/{transform}/{name}[.ext].
+  // The transform segment goes right before the name; no extension = the CDN
+  // picks the best format the browser supports (AVIF -> WebP -> JPEG).
+  variantUrl(image: UploadResult, preset: (typeof PRESETS)[number]): string {
+    const base = image.url.slice(0, image.url.length - image.name.length)
+    return `${base}${preset.transform}/${image.name}${preset.ext}`
+  }
 
   async ngOnInit() {
     this.healthy.set(await checkHealth())
