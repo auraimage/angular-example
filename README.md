@@ -1,5 +1,7 @@
 # AuraImage Angular Example
 
+[![Images powered by AuraImage](https://img.shields.io/badge/Images%20powered%20by-AuraImage-0b0b0b?style=flat-square)](https://auraimage.ai)
+
 A minimal Angular app that uploads images to AuraImage and displays
 transformed variants. Uses Angular 19, standalone components, signals,
 TypeScript, and Tailwind CSS v4.
@@ -131,3 +133,17 @@ angular-example/
 - [AuraImage docs](https://auraimage.ai/docs)
 - [Dashboard](https://app.auraimage.ai)
 - [@auraimage/sdk on npm](https://www.npmjs.com/package/@auraimage/sdk)
+
+---
+
+Images powered by [AuraImage](https://auraimage.ai) — the image CDN that
+installs itself. Set it up in any project with `npx aura init`, or from your
+AI agent with [Agent Skills](https://github.com/auraimage/skills) and the
+[MCP server](https://github.com/auraimage/mcp-server).
+
+### Contributing
+
+This repository is generated from the AuraImage monorepo, so pull requests
+opened here are overwritten on the next sync. Please
+[open an issue](https://github.com/auraimage/skills/issues) instead — bugs
+in this example are fixed upstream and mirrored back within minutes.
